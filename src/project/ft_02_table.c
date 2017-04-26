@@ -1,60 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   *.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalmyko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Artem Kalmykov <kalmykov.artem@gmail.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/17 17:44:18 by akalmyko          #+#    #+#             */
-/*   Updated: 2017/03/17 18:02:48 by akalmyko         ###   ########.fr       */
+/*   Created: 2017/00/00 00:00:00 by akalmyko          #+#    #+#             */
+/*   Updated: 2017/00/00 00:00:00 by akalmyko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "db.h"
 
-t_table			*ft_return_table(t_db *database, char *name)
+t_table			*ft_return_table(t_db *database, char *nameTable)
 {
 	t_table		*table;
 
-	if (!database || !name)
+	if (!database || !nameTable)
 		return NULL;
 	table = database->firstTable;
 	while(table)
 	{
-		if (ft_strcmp(table->nameTable, name) == ISEQUAL)
-			break ;
+		if (ft_strcmp(table->nameTable, nameTable) == ISEQUAL)
+			return (table);
 		table = table->nextTable;
 	}
-	return (table);
+	return (NULL);
 }
 
-static t_table	*ft_malloc_table(char *name)
+static t_table	*ft_malloc_table(char *nameTable)
 {
 	t_table		*new;
 
-	if (!name)
+	if (!nameTable)
 		return (NULL);
 	new = (t_table*)malloc(sizeof(t_table) * 1);
 	if (!new)
 		return (NULL);
-	new->nameTable = name;
-	new->nextTable = NULL;
 	new->amountColumn = 0;
+	new->nameTable = nameTable;
+	new->nextTable = NULL;
 	new->firstColumn = NULL;
 	new->lastColumn = NULL;
 	return (new);
 }
 
-void			ft_new_table(t_db *database, char *name)
+void			ft_new_table(t_db *database, char *nameTable)
 {
 	t_table		*new;
 
-	if (!database || !name)
+	if (!database)
 		return ;
-	if (ft_return_table(database, name))
-		return ;
-	if (!(new = ft_malloc_table(name)))
-		return ;
+	if (!nameTable)
+		return (ft_set_error(database, "No table name"));
+	if (ft_strlen(nameTable) < 1)
+		return (ft_set_error(database, "Table name too short"));
+	if (ft_is_all_print(nameTable) == NONPRINTABLE)
+		return (ft_set_error(database, "Bad name for table"));
+	if (ft_return_table(database, nameTable))
+		return (ft_set_error(database, "Table name already exist"));
+	if (!(new = ft_malloc_table(nameTable)))
+		return (ft_set_error(database, "Memory allocation error"));
 	if (!database->firstTable)
 	{
 		database->firstTable = new;

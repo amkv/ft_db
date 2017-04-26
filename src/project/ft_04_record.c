@@ -12,51 +12,15 @@
 
 #include "db.h"
 
-void			ft_print_db_error(t_db *database)
+void			ft_new_record(t_db *database, char *tableName, char *nameColumn, char *type, void *record)
 {
-	if (!database)
-		return ;
-	if (database->error)
-	{
-		ft_printf("%s\n", database->nameError);
-		ft_clean_error(database);
-	}
+	return ;
 }
 
-void			ft_set_error(t_db *database, char *nameError)
-{
-	if (!database)
-		return ;
-	database->error = True;
-	database->nameError = nameError;
-}
-
-void			ft_clean_error(t_db *database)
-{
-	if (!database)
-		return ;
-	database->error = False;
-	database->nameError = NULL;
-}
-
-t_db			*ft_init_db(char *nameDB)
-{
-	t_db		*new;
-
-	if (!nameDB)
-		return (NULL);
-	if (ft_strlen(nameDB) < 1)
-		return (NULL);
-	if (ft_is_all_print(nameDB) == NONPRINTABLE)
-		return (NULL);
-	new = (t_db*)malloc(sizeof(t_db) * 1);
-	if (!new)
-		return (NULL);
-	new->name = nameDB;
-	new->amountTables = 0;
-	new->firstTable = NULL;
-	new->lastTable = NULL;
-	new->error = False;
-	new->nameError = NULL;
-	return (new);
-}
+/*
+ * "types"
+ * s string
+ * c char
+ * d/i int
+ * ...
+ */

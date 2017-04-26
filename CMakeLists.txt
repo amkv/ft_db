@@ -9,6 +9,7 @@ set(SOURCE_FILES
 		src/project/main.c
 		src/project/ft_01_init_db.c
 		src/project/ft_02_table.c
+		src/project/ft_03_column.c
 		)
 add_executable(ft_db ${SOURCE_FILES})
 target_link_libraries(

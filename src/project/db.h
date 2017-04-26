@@ -22,6 +22,7 @@
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
 # define ISEQUAL 0
+# define NONPRINTABLE 0
 
 enum boolean
 {
@@ -35,6 +36,8 @@ typedef struct			s_db
 	int					amountTables;		// how many tables
 	struct s_table		*firstTable;		// first table in DB
 	struct s_table		*lastTable;			// last table in DB
+	enum boolean		error;				// any errors?
+	char 				*nameError;			// name of error
 }						t_db;
 
 typedef struct			s_table
@@ -62,9 +65,26 @@ typedef struct			s_record
 	struct s_record		*columnRecord;		// next record (down)
 }						t_record;
 
-t_db					*ft_init_db(char *name);
+typedef struct 			s_query				// wrapper for query
+{
+	t_db 				*database;
+	char				*nameTable;
+	char				*nameColumn;
+	char				*type;
+	void				*record;
+	struct s_query		*next;
+}						t_query;
+
+t_db					*ft_init_db(char *nameDB);
+void					ft_set_error(t_db *database, char *nameError);
+void					ft_clean_error(t_db *database);
+void					ft_print_db_error(t_db *database);
 void					ft_new_table(t_db *database, char *name);
 t_table					*ft_return_table(t_db *database, char *name);
 void					ft_new_table(t_db *database, char *name);
+void 					ft_new_column(t_db *database, char *tableName, char *nameColumn);
+void 					ft_new_record(t_db *database, char *tableName, char *nameColumn, char *type, void *record);
+
+int 					ft_is_all_print(const char *str);
 
 #endif
