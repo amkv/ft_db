@@ -49,7 +49,7 @@ void			ft_print_all_records(t_db *database)
 					ft_printf(GRY"[id: %d(%d) (%s)]"CLN" NONE "GRY"|"CLN" ", record->isID, record->id, record->typeRecord);
 				else
 				{
-					ft_printf("[id: %d(%d) (%s)] ", record->isID, record->id, record->typeRecord);
+					ft_printf(GRY"[id: %d(%d) (%s)] "CLN, record->isID, record->id, record->typeRecord);
 					if (ft_strcmp(record->typeRecord, "string") == 0)
 						ft_printf(GRN"%s"CLN" | ", (char*)record->value);
 					else if (ft_strcmp(record->typeRecord, "int") == 0)

@@ -13,6 +13,7 @@ set(SOURCE_FILES
 		src/project/ft_03_column.c
 		src/project/ft_04_record.c
 		src/project/ft_05_row.c
+		src/project/ft_08_ft_db.c
 		)
 add_executable(ft_db ${SOURCE_FILES})
 target_link_libraries(
