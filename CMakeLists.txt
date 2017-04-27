@@ -7,6 +7,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -Wall -Wextra -Werror")
 
 set(SOURCE_FILES
 		src/project/main.c
+<<<<<<< HEAD
 		src/project/ft_01_ft_db.c
 		src/project/ft_02_parser.c
 		src/project/ft_03_query.c
@@ -17,6 +18,15 @@ set(SOURCE_FILES
 		src/project/ft_09_record.c
 		src/project/ft_08_row.c
 		src/project/ft_10_print_db.c
+=======
+		src/project/ft_00_extra_functions.c
+		src/project/ft_01_init_db.c
+		src/project/ft_02_table.c
+		src/project/ft_03_column.c
+		src/project/ft_04_record.c
+		src/project/ft_05_row.c
+		src/project/ft_08_ft_db.c
+>>>>>>> be270d3794cb92b9a0bde32764473fb0e5a8cdc5
 		)
 add_executable(ft_db ${SOURCE_FILES})
 target_link_libraries(

@@ -39,6 +39,7 @@ int	main(void)
 //	ft_delete_record(database, "First table", "Column 1", "string", "id", "AZTEC!");
 
 //	database = NULL;
+<<<<<<< HEAD
 //
 //	ft_db("CREATE DATABASE: test", &database);
 
@@ -47,6 +48,17 @@ int	main(void)
 //	ft_printf("result: %d", ft_db("CREATE DATABASE: TEST, CREATE TABLE: ANOTHER test, CREATE COLUMN: My column, TYPE COLUMN:int"));
 
 	ft_db_print_all_db(database);
+=======
+//	ft_db(&database, "CREATE_DB:test, CREATE_TABLE:table1, CREATE_COLUMN:column1");
+//	ft_db(&database, "ADD_RECORD:test record");
+//	ft_printf("result: %d", ft_db("CREATE DATABASE: TEST, CREATE TABLE: ANOTHER test, CREATE COLUMN: My column, TYPE COLUMN:int"));
+//	ft_printf("main: %p\n", &database);
+//	ft_db("CREATE DATABASE: test", &database);
+//	ft_printf("main after:  %p\n", database);
+//	ft_printf("main &after: %p\n", &database);
+
+	ft_print_all_records(database);
+>>>>>>> be270d3794cb92b9a0bde32764473fb0e5a8cdc5
 //	free(all);
 	return (EXIT_SUCCESS);
 }

@@ -28,6 +28,7 @@
 # define INT 2
 # define PAIRSEPARATOR ':'
 # define SEPARATOR ','
+<<<<<<< HEAD
 
 # define CREATE_DATABASE "CREATE DATABASE"
 # define CREATE_TABLE "CREATE TABLE"
@@ -36,6 +37,8 @@
 # define CHANGE_RECORD "CHANGE RECORD"
 # define DELETE_RECORD "DELETE RECORD"
 //# define SELECT_
+=======
+>>>>>>> be270d3794cb92b9a0bde32764473fb0e5a8cdc5
 
 typedef enum boolean
 {
