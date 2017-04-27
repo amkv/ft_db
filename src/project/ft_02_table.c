@@ -37,11 +37,14 @@ static t_table	*ft_malloc_table(char *nameTable)
 	new = (t_table*)malloc(sizeof(t_table) * 1);
 	if (!new)
 		return (NULL);
-	new->amountColumn = 0;
 	new->nameTable = nameTable;
-	new->nextTable = NULL;
+	new->amountColumns = 0;
+	new->amountRecords = 0;
+	new->amountRows = 0;
+	new->empty = True;
 	new->firstColumn = NULL;
 	new->lastColumn = NULL;
+	new->nextTable = NULL;
 	return (new);
 }
 

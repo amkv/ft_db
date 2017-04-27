@@ -23,12 +23,14 @@
 # define EXIT_SUCCESS 0
 # define ISEQUAL 0
 # define NONPRINTABLE 0
+# define STRING 1
+# define INT 2
 
-enum boolean
+typedef enum boolean
 {
 	False,
 	True
-};
+}			bool;
 
 typedef struct			s_db
 {
@@ -36,14 +38,17 @@ typedef struct			s_db
 	int					amountTables;		// how many tables
 	struct s_table		*firstTable;		// first table in DB
 	struct s_table		*lastTable;			// last table in DB
-	enum boolean		error;				// any errors?
+	bool				error;				// any errors?
 	char 				*nameError;			// name of error
 }						t_db;
 
 typedef struct			s_table
 {
 	char 				*nameTable;			// name of table
-	size_t	 			amountColumn; 		// how many columns
+	size_t	 			amountColumns; 		// how many columns
+	size_t	 			amountRecords; 		// how many records
+	size_t	 			amountRows; 		// how many records
+	bool				empty;				// is empty table? True/False
 	struct s_column		*firstColumn;		// first column in Table
 	struct s_column		*lastColumn;		// first column in Table
 	struct s_table		*nextTable;			// next table in DB
@@ -52,25 +57,38 @@ typedef struct			s_table
 typedef struct			s_column
 {
 	char 				*nameColumn;		// name of column
-	struct s_record		*downRecord;		// next Record (down)
+	char 				*typeColumn;		// type of column
+	size_t	 			amountRecords; 		// how many records
+	struct s_record		*firstRow;			// first Record (in column)
+	struct s_record		*lastRow;			// last Record (in column)
 	struct s_column		*nextColumn;		// next Column (right)
 }						t_column;
 
 typedef struct			s_record
 {
-	enum boolean		isID;				// is first record in row? True/False
-	size_t				id;					// uniq id of record if first record
-	int 				value;				// value of record (union?)
-	struct s_record		*rowRecord;			// next record (right)
-	struct s_record		*columnRecord;		// next record (down)
+	bool				isID;				// is first record in row? True/False
+	bool				empty;				// is empty record? True/False
+	size_t				id;					// id record record (row uniq id)
+	void 				*value;				// value of record (union?)
+
+	char 				*typeRecord;		// type of record
+	struct s_record		*right;				// pointer in table
+	struct s_record		*left;
+	struct s_record		*down;
+	struct s_record		*up;
+
+	struct s_column		*column;			// pointer to column
+	struct s_record		*firstID;			// pointer to first record in row
 }						t_record;
 
 typedef struct 			s_query				// wrapper for query
 {
 	t_db 				*database;
+	t_table				*table;
+	t_column			*column;
 	char				*nameTable;
 	char				*nameColumn;
-	char				*type;
+	char				*typeColumn;
 	void				*record;
 	struct s_query		*next;
 }						t_query;
@@ -82,9 +100,14 @@ void					ft_print_db_error(t_db *database);
 void					ft_new_table(t_db *database, char *name);
 t_table					*ft_return_table(t_db *database, char *name);
 void					ft_new_table(t_db *database, char *name);
-void 					ft_new_column(t_db *database, char *tableName, char *nameColumn);
+void 					ft_new_column(t_db *database, char *nameTable, char *nameColumn, char *typeColumn);
+t_column				*ft_return_column(t_table *table, char *nameColumn);
+int						ft_check_type_of_column(char *typeColumn);
 void 					ft_new_record(t_db *database, char *tableName, char *nameColumn, char *type, void *record);
+void					ft_create_row(t_db *database, t_table *table, t_column *column);
+
 
 int 					ft_is_all_print(const char *str);
+void					ft_print_all_records(t_db *database);
 
 #endif

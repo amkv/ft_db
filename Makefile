@@ -18,7 +18,7 @@ PRJ = $(SRCF)project
 LIBFT = $(SRCF)lib/
 LIB = $(LIBFT)libft.a
 CC = /usr/bin/gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 RMF = /bin/rm -rf
 CFILES = $(shell find $(PRJ) -name "*.c")
 OFILES = $(CFILES:$(PRJ)/%.c=%.o)
@@ -48,6 +48,16 @@ fclean:
 	@$(RMF) $(OFILES)
 	@$(RMF) $(NAME)
 	@echo "$(WHT)fcleaned$(CLN)"
+
+c:
+	clear
+	@$(RMF) $(NAME)
+	@$(CC) $(FLAGS) $(CFILES) -c
+	@$(CC) $(FLAGS) $(OFILES) $(LIB) -o $(NAME)
+	@echo "$(GRN)created$(CLN)"
+	make clean
+	clear
+	./$(NAME)
 
 re: fclean all
 

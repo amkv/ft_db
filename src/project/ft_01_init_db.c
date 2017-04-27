@@ -12,17 +12,6 @@
 
 #include "db.h"
 
-void			ft_print_db_error(t_db *database)
-{
-	if (!database)
-		return ;
-	if (database->error)
-	{
-		ft_printf("%s\n", database->nameError);
-		ft_clean_error(database);
-	}
-}
-
 void			ft_set_error(t_db *database, char *nameError)
 {
 	if (!database)
