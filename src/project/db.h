@@ -14,6 +14,7 @@
 # define DB_H
 
 # include "../lib/libft/libft.h"
+# include <stdarg.h>
 
 # pragma GCC diagnostic ignored "-Wunused-parameter"
 # pragma GCC diagnostic ignored "-Wunused-variable"
@@ -25,6 +26,16 @@
 # define NONPRINTABLE 0
 # define STRING 1
 # define INT 2
+# define PAIRSEPARATOR ':'
+# define SEPARATOR ','
+
+# define CREATE_DATABASE "CREATE DATABASE"
+# define CREATE_TABLE "CREATE TABLE"
+# define CREATE_COLUMN "CREATE COLUMN"
+# define ADD_RECORD "ADD RECORD"
+# define CHANGE_RECORD "CHANGE RECORD"
+# define DELETE_RECORD "DELETE RECORD"
+//# define SELECT_
 
 typedef enum boolean
 {
@@ -83,16 +94,27 @@ typedef struct			s_record
 
 typedef struct 			s_query				// wrapper for query
 {
+	char				*command;
+	char				*tag;
 	t_db 				*database;
 	t_table				*table;
 	t_column			*column;
+	t_record			*row;
+//	t_record			*record;
+	char				*nameDB;
 	char				*nameTable;
 	char				*nameColumn;
 	char				*typeColumn;
 	void				*record;
+	bool				error;				// True if error
+	char				*error_name;
+	struct s_query		*firstQuery;
 	struct s_query		*next;
 }						t_query;
 
+void 					ft_db_parser(t_query **query, const char *format);
+t_query					*ft_db_add_query(t_query *query, char *command, char *tag);
+int	 					ft_db_action(t_query *query, va_list list);
 t_db					*ft_init_db(char *nameDB);
 void					ft_set_error(t_db *database, char *nameError);
 void					ft_clean_error(t_db *database);
@@ -105,9 +127,10 @@ t_column				*ft_return_column(t_table *table, char *nameColumn);
 int						ft_check_type_of_column(char *typeColumn);
 void 					ft_new_record(t_db *database, char *tableName, char *nameColumn, char *type, void *record);
 void					ft_create_row(t_db *database, t_table *table, t_column *column);
+int 					ft_db(const char *restrict format, ...);
 
 
 int 					ft_is_all_print(const char *str);
-void					ft_print_all_records(t_db *database);
+void					ft_db_print_all_db(t_db *database);
 
 #endif

@@ -74,10 +74,12 @@ void			ft_create_row(t_db *database, t_table *table, t_column *column)
 	t_record	*left;
 	t_record	*firstID;
 	t_record	*lastRow;
+	bool		first;
 
 	column_ = table->firstColumn;
 	left = NULL;
 	firstID = NULL;
+	first = True;
 	if (column_->lastRow)
 		lastRow = column_->lastRow->firstID;
 	else
@@ -85,8 +87,12 @@ void			ft_create_row(t_db *database, t_table *table, t_column *column)
 	while(column_)
 	{
 		new = ft_malloc_record();
-		if (!new->left)
+//		if (!new->left)
+		if (first)
+		{
 			ft_set_first_in_row(new, table, column_, &firstID);
+			first = False;
+		}
 		ft_set_new(new, column_, firstID, lastRow);
 		ft_set_new2(new, &left, &column_, &lastRow);
 		column_ = column_->nextColumn;
