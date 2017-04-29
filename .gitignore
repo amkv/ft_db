@@ -1,2 +1,8 @@
 cmake-build-debug/
 *.o
+ft_db.dSYM
+*.a
+sup.txt
+temp/
+temp.c
+test

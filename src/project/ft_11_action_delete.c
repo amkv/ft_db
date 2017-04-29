@@ -16,20 +16,20 @@ void			ft_db_action_delete(t_query *query, t_query *list)
 {
 	if (ft_strcmp(query->object, DATABASE) == 0)
 	{
-		ft_printf("!DELETE DATABASE\n");
+		ft_print_debug_info(*query->database, "DELETE DATABASE");
 	}
 	else if (ft_strcmp(query->object, TABLE) == 0)
 	{
-		ft_printf("!DELETE TABLE\n");
+		ft_print_debug_info(*query->database, "DELETE TABLE");
 	}
 	else if (ft_strcmp(query->object, COLUMN) == 0)
 	{
-		ft_printf("!DELETE COLUMN\n");
+		ft_print_debug_info(*query->database, "DELETE COLUMN");
 	}
 	else if (ft_strcmp(query->object, RECORD) == 0)
 	{
-		ft_printf("!DELETE RECORD\n");
+		ft_print_debug_info(*query->database, "DELETE RECORD");
 	}
 	else
-		ft_printf(RED"!BAD OBJECT (DELETE)\n"CLN);
+		ft_print_debug_info(*query->database, RED"BAD OBJECT (DELETE)"CLN);
 }

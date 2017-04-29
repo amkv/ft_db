@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re o c v f
 
 NAME = ft_db
 SRCF = src/
@@ -18,7 +18,8 @@ PRJ = $(SRCF)project
 LIBFT = $(SRCF)lib/
 LIB = $(LIBFT)libft.a
 CC = /usr/bin/gcc
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+# FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 RMF = /bin/rm -rf
 CFILES = $(shell find $(PRJ) -name "*.c")
 OFILES = $(CFILES:$(PRJ)/%.c=%.o)
@@ -49,15 +50,24 @@ fclean:
 	@$(RMF) $(NAME)
 	@echo "$(WHT)fcleaned$(CLN)"
 
-c:
+o:
 	clear
 	@$(RMF) $(NAME)
 	@$(CC) $(FLAGS) $(CFILES) -c
 	@$(CC) $(FLAGS) $(OFILES) $(LIB) -o $(NAME)
-	@echo "$(GRN)created$(CLN)"
 	make clean
 	clear
+	@echo "$(GRN)created$(CLN)"
+
+c: o
 	./$(NAME)
+
+v: o
+	~/goinfre/brew/bin/valgrind --suppressions=sup.txt ./$(NAME)
+
+f: o
+	~/goinfre/brew/bin/valgrind --leak-check=full --suppressions=sup.txt ./$(NAME)
+
 
 re: fclean all
 

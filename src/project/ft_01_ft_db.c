@@ -18,7 +18,7 @@ void			ft_print_db_error(t_db *database)
 		return ;
 	if (database->error)
 	{
-		ft_printf("%s\n", database->nameError);
+		ft_printf(RED"%s\n"CLN, database->nameError);
 		ft_clean_error(database);
 	}
 }
@@ -35,8 +35,5 @@ int 			ft_db(const char *restrict format, ...)
 	ft_db_parser(&query, format);
 	ft_db_action(query, list);
 	va_end(list);
-//	ft_db_null_query(query);
-//	free(query);
-//	ft_db_free_query(query);
 	return (0);
 }

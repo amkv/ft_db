@@ -18,12 +18,16 @@ set(SOURCE_FILES
 		src/project/ft_09_action_change.c
 		src/project/ft_10_action_select.c
 		src/project/ft_11_action_delete.c
-		src/project/ft_12_init_db.c
-		src/project/ft_13_table.c
-		src/project/ft_14_column.c
-		src/project/ft_16_record.c
-		src/project/ft_15_row.c
-		src/project/ft_17_print_db.c
+		src/project/ft_12_action_print.c
+		src/project/ft_13_actoin_print_db.c
+		src/project/ft_14_action_dump.c
+		src/project/ft_15_action_dump_db.c
+		src/project/ft_16_action_flush.c
+		src/project/ft_21_init_db.c
+		src/project/ft_22_table.c
+		src/project/ft_23_column.c
+		src/project/ft_24_row.c
+		src/project/ft_25_record.c
 		)
 add_executable(ft_db ${SOURCE_FILES})
 target_link_libraries(

@@ -41,11 +41,12 @@ t_db			*ft_init_db(char *nameDB)
 	new = (t_db*)malloc(sizeof(t_db) * 1);
 	if (!new)
 		return (NULL);
-	new->name = nameDB;
+	new->name = ft_strdup(nameDB);
 	new->amountTables = 0;
 	new->firstTable = NULL;
 	new->lastTable = NULL;
 	new->error = False;
 	new->nameError = NULL;
+	new->debug = False;
 	return (new);
 }

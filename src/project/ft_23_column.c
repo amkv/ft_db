@@ -19,8 +19,8 @@ static t_column *ft_malloc_column(char *nameColumn, char *typeColumn)
 	new = (t_column*)malloc(sizeof(t_column) * 1);
 	if (!new)
 		return (NULL);
-	new->nameColumn = nameColumn;
-	new->typeColumn = typeColumn;
+	new->nameColumn = ft_strdup(nameColumn);
+	new->typeColumn = ft_strdup(typeColumn);
 	new->amountRecords = 0;
 	new->firstRow = NULL;
 	new->lastRow = NULL;

@@ -12,13 +12,46 @@
 
 #include "db.h"
 
-static bool 	ft_initialize_query(t_query *query,t_query *list, t_db **database)
+void			ft_print_debug_info(t_db *database, char *info)
+{
+	if (database)
+	{
+		if (database->debug)
+			ft_printf("ft_db [%s]\n", info);
+		if (database->error)
+		{
+			ft_printf("ft_db [%s]\n", database->nameError);
+			database->error = False;
+			database->nameError = NULL;
+		}
+	}
+}
+
+static t_query	*ft_free_list_and_next(t_query *list)
+{
+	t_query		*next;
+
+	if (ft_strcmp(list->object, RECORD) != 0)
+	{
+		free(list->tag);
+		list->tag = NULL;
+	}
+	next = list->next;
+	free(list->action);
+	list->action = NULL;
+	free(list->object);
+	list->object = NULL;
+	free(list);
+	return (next);
+}
+
+static bool 	ft_initialize_query(t_query *query, t_query *list, t_db **database)
 {
 	query->database = database;
 	query->action = list->action;
 	query->object = list->object;
 	query->tag = list->tag;
-	if (query->action == NULL || query->object == NULL || query->tag == NULL)
+	if (query->action == NULL || query->object == NULL) // || query->tag == NULL
 		return (False);
 	return (True);
 }
@@ -34,7 +67,7 @@ int	 			ft_db_action(t_query *list, va_list ap)
 	while(list)
 	{
 		if (!ft_initialize_query(&query, list, database))
-			ft_printf(RED"!BAD ACTION or BAD OBJECT or TAG\n"CLN);
+			ft_print_debug_info(*query.database, RED"BAD ACTION or BAD OBJECT or TAG"CLN);
 		else if (ft_strcmp(query.action, CREATE) == 0)
 			ft_db_action_create(&query, list);
 		else if (ft_strcmp(query.action, ADD) == 0)
@@ -49,32 +82,17 @@ int	 			ft_db_action(t_query *list, va_list ap)
 			ft_db_action_select(&query, list);
 		else if (ft_strcmp(query.action, DELETE) == 0)
 			ft_db_action_delete(&query, list);
+		else if (ft_strcmp(query.action, PRINT) == 0)
+			ft_db_action_print(&query, list);
+		else if (ft_strcmp(query.action, DUMP) == 0)
+			ft_db_action_dump(&query, list);
+		else if (ft_strcmp(query.action, FLUSH) == 0)
+			ft_db_action_flush(&query, list);
 		else
-			ft_printf(RED"!BAD ACTION\n"CLN);
+			ft_print_debug_info(*query.database, RED"BAD ACTION"CLN);
 		if (!query.lock)
 			ft_db_null_query(&query);
-		if (list)
-			list = list->next;
+		list = ft_free_list_and_next(list);
 	}
 	return (0);
 }
-
-//		if (ft_strcmp(list->command, CREATE_DATABASE) == 0)
-//		{
-
-//		}
-//		else if (ft_strcmp(list->command, CREATE_TABLE) == 0)
-//		{
-//			query.nameTable = list->tag;
-//			ft_new_table(*query.database, query.nameTable);
-//		}
-//		else if (ft_strcmp(list->command, CREATE_COLUMN) == 0)
-//		{
-//			list->nameTable = list->tag;
-//			list->nameColumn = list->next->tag;
-//			list->typeColumn = list->next->next->tag;
-//			ft_new_column(*query.database, list->nameTable, list->nameColumn, list->typeColumn);
-//			list = list->next->next;
-//		}
-//		else if (ft_strcmp(list->command, ADD_RECORD) == 0)
-//			;

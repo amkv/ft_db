@@ -12,14 +12,36 @@
 
 #include "db.h"
 
+void			ft_db_action_set_debug(t_query *query, t_query *list)
+{
+	query->typeColumn = ft_strdup(list->tag);
+	query->lock = True;
+	ft_print_debug_info(*query->database, "SET TYPE");
+}
+
+void			ft_db_action_set_type(t_db *database)
+{
+	if (database)
+	{
+		if (database->debug)
+		{
+			ft_printf("[UNSET DEBUG]\n");
+			database->debug = False;
+		}
+		else
+		{
+			ft_printf("[SET DEBUG]\n");
+			database->debug = True;
+		}
+	}
+}
+
 void			ft_db_action_set(t_query *query, t_query *list)
 {
 	if (ft_strcmp(query->object, TYPE) == 0)
-	{
-		query->typeColumn = list->tag;
-		query->lock = True;
-		ft_printf("!SET TYPE\n");
-	}
+		ft_db_action_set_debug(query, list);
+	else if (ft_strcmp(query->object, DEBUG) == 0)
+		ft_db_action_set_type(*query->database);
 	else
-		ft_printf(RED"!BAD OBJECT (SET)\n"CLN);
+		ft_print_debug_info(*query->database, RED"BAD OBJECT (SET)"CLN);
 }

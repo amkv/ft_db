@@ -12,42 +12,37 @@
 
 #include "db.h"
 
-static void		ft_db_action_create_database(t_query *query, t_query *list)
+static void		ft_db_action_print_database(t_query *query, t_query *list)
 {
-//	if (list->tag)
-//	{
-		query->nameDB = list->tag;
-		*query->database = ft_init_db(query->nameDB);
-//	}
-	ft_print_debug_info(*query->database, "CREATE DATABASE");
+	ft_db_print_all_db(*query->database);
+	ft_print_debug_info(*query->database, "PRINT DATABASE");
 }
 
-static void		ft_db_action_create_table(t_query *query)
+static void		ft_db_action_print_table(t_query *query, t_query *list)
 {
-	query->nameTable = query->tag;
-	ft_new_table(*query->database, query->tag);
-	ft_print_debug_info(*query->database, "CREATE TABLE");
+	ft_print_debug_info(*query->database, "PRINT TABLE");
 }
 
-static void		ft_db_action_create_column(t_query *query, t_query *list)
+static void		ft_db_action_print_column(t_query *query, t_query *list)
 {
-
-	query->nameColumn = list->tag;
-	ft_new_column(*query->database, query->nameTable, query->nameColumn, query->typeColumn);
-	query->lock = False;
-	free(query->nameTable);
-	free(query->typeColumn);
-	ft_print_debug_info(*query->database, "CREATE COLUMN");
+	ft_print_debug_info(*query->database, "PRINT COLUMN");
 }
 
-void			ft_db_action_create(t_query *query, t_query *list)
+static void		ft_db_action_print_record(t_query *query, t_query *list)
+{
+	ft_print_debug_info(*query->database, "PRINT RECORD");
+}
+
+void			ft_db_action_print(t_query *query, t_query *list)
 {
 	if (ft_strcmp(query->object, DATABASE) == 0)
-		ft_db_action_create_database(query, list);
+		ft_db_action_print_database(query, list);
 	else if (ft_strcmp(query->object, TABLE) == 0)
-		ft_db_action_create_table(query);
+		ft_db_action_print_table(query, list);
 	else if (ft_strcmp(query->object, COLUMN) == 0)
-		ft_db_action_create_column(query, list);
+		ft_db_action_print_column(query, list);
+	else if (ft_strcmp(query->object, RECORD) == 0)
+		ft_db_action_print_record(query, list);
 	else
-		ft_print_debug_info(*query->database, RED"BAD OBJECT (CREATE)"CLN);
+		ft_print_debug_info(*query->database, RED"BAD OBJECT (PRINT)"CLN);
 }

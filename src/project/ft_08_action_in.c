@@ -16,16 +16,16 @@ void			ft_db_action_in(t_query *query, t_query *list)
 {
 	if (ft_strcmp(query->object, TABLE) == 0)
 	{
-		query->nameTable = list->tag;
+		query->nameTable = ft_strdup(list->tag);
 		query->lock = True;
-		ft_printf("!IN TABLE\n");
+		ft_print_debug_info(*query->database, "IN TABLE");
 	}
 	else if (ft_strcmp(query->object, COLUMN) == 0)
 	{
-		query->nameColumn = list->tag;
+		query->nameColumn = ft_strdup(list->tag);
 		query->lock = True;
-		ft_printf("!IN COLUMN\n");
+		ft_print_debug_info(*query->database, "IN COLUMN");
 	}
 	else
-		ft_printf(RED"!BAD OBJECT (IN)\n"CLN);
+		ft_print_debug_info(*query->database, RED"BAD OBJECT (IN)"CLN);
 }

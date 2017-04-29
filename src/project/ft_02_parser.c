@@ -60,7 +60,7 @@ static void 	ft_db_set_action_target_tag(char *pair, char **action, char **objec
 		pointer++;
 		start++;
 	}
-	while(*pointer != PAIRSEPARATOR)
+	while(*pointer && *pointer != PAIRSEPARATOR)
 		pointer++;
 	null_termination_pointer = pointer;
 	*pointer = '\0';

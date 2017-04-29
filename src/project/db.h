@@ -42,6 +42,8 @@
 # define DELETE "DELETE"
 # define IN "IN"
 # define PRINT "PRINT"
+# define DUMP "DUMP"
+# define FLUSH "FLUSH"
 
 // objects
 # define DATABASE "DATABASE"
@@ -49,6 +51,7 @@
 # define COLUMN "COLUMN"
 # define RECORD "RECORD"
 # define TYPE "TYPE"
+# define DEBUG "DEBUG"
 
 // tag
 
@@ -66,6 +69,7 @@ typedef struct			s_db
 	struct s_table		*lastTable;			// last table in DB
 	bool				error;				// any errors?
 	char 				*nameError;			// name of error
+	bool				debug;				// debug mode, print errors and log
 }						t_db;
 
 typedef struct			s_table
@@ -144,6 +148,9 @@ void					ft_db_action_in(t_query *query, t_query *list);
 void					ft_db_action_change(t_query *query, t_query *list);
 void					ft_db_action_select(t_query *query, t_query *list);
 void					ft_db_action_delete(t_query *query, t_query *list);
+void					ft_db_action_print(t_query *query, t_query *list);
+void					ft_db_action_dump(t_query *query, t_query *list);
+void					ft_db_action_flush(t_query *query, t_query *list);
 
 t_db					*ft_init_db(char *nameDB);
 void					ft_set_error(t_db *database, char *nameError);
@@ -159,7 +166,7 @@ void 					ft_new_record(t_db *database, char *tableName, char *nameColumn, char 
 void					ft_create_row(t_db *database, t_table *table, t_column *column);
 int 					ft_db(const char *restrict format, ...);
 
-
+void					ft_print_debug_info(t_db *database, char *info);
 void					ft_db_dump(t_db *database, char *file);
 int 					ft_is_all_print(const char *str);
 void					ft_db_print_all_db(t_db *database);

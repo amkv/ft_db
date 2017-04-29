@@ -16,20 +16,20 @@ void			ft_db_action_select(t_query *query, t_query *list)
 {
 	if (ft_strcmp(query->object, DATABASE) == 0)
 	{
-		ft_printf("!SELECT DATABASE\n");
+		ft_print_debug_info(*query->database, "SELECT DATABASE");
 	}
 	else if (ft_strcmp(query->object, TABLE) == 0)
 	{
-		ft_printf("!SELECT TABLE\n");
+		ft_print_debug_info(*query->database, "SELECT TABLE");
 	}
 	else if (ft_strcmp(query->object, COLUMN) == 0)
 	{
-		ft_printf("!SELECT COLUMN\n");
+		ft_print_debug_info(*query->database, "SELECT COLUMN");
 	}
 	else if (ft_strcmp(query->object, RECORD) == 0)
 	{
-		ft_printf("!SELECT RECORD\n");
+		ft_print_debug_info(*query->database, "SELECT RECORD");
 	}
 	else
-		ft_printf(RED"!BAD OBJECT (SELECT)\n"CLN);
+		ft_print_debug_info(*query->database, RED"BAD OBJECT (SELECT)"CLN);
 }

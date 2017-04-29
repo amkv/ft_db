@@ -56,6 +56,7 @@ static void		ft_set_new(t_record *new, t_column	*column_, t_record *firstID, t_r
 static void		ft_set_new2(t_record *new, t_record	**left, t_column **column_, t_record **lastRow)
 {
 	new->left = *left;
+	new->typeRecord = ft_strdup((*column_)->typeColumn);
 	if (*left)
 		(*left)->right = new;
 	*left = new;

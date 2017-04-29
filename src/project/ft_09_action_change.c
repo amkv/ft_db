@@ -16,8 +16,8 @@ void			ft_db_action_change(t_query *query, t_query *list)
 {
 	if (ft_strcmp(query->object, RECORD) == 0)
 	{
-		ft_printf("!CHANGE RECORD\n");
+		ft_print_debug_info(*query->database, "CHANGE RECORD");
 	}
 	else
-		ft_printf(RED"!BAD OBJECT (CHANGE)\n"CLN);
+		ft_print_debug_info(*query->database, RED"BAD OBJECT (CHANGE)"CLN);
 }
