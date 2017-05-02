@@ -17,12 +17,14 @@ void			ft_db_action_in(t_query *query, t_query *list)
 	if (ft_strcmp(query->object, TABLE) == 0)
 	{
 		query->nameTable = ft_strdup(list->tag);
+		query->memNameTable = True;
 		query->lock = True;
 		ft_print_debug_info(*query->database, "IN TABLE");
 	}
 	else if (ft_strcmp(query->object, COLUMN) == 0)
 	{
 		query->nameColumn = ft_strdup(list->tag);
+		query->memNameColumn = True;
 		query->lock = True;
 		ft_print_debug_info(*query->database, "IN COLUMN");
 	}

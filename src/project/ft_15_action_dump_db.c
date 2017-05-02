@@ -39,12 +39,9 @@ static void		ft_dump_records(int fd, t_record *row)
 			else if (!record->empty)
 			{
 				if (!ft_strcmp(record->typeRecord, "int"))
-				{
-					ft_write_to_file(fd, tmp = ft_itoa((int)record->value));
-					free(tmp);
-				}
+					ft_write_to_file(fd, (char*)record->value);
 				else if (!ft_strcmp(record->typeRecord, "string"))
-					ft_write_to_file(fd, (char *)record->value);
+					ft_write_to_file(fd, (char*)record->value);
 			}
 			if (record->right)
 				ft_write_to_file(fd, "\',\'");
@@ -69,7 +66,6 @@ static void		ft_dump_columns(int fd, t_column *column)
 			ft_write_to_file(fd, column->nameColumn);
 			ft_write_to_file(fd, "\':\'");
 			ft_write_to_file(fd, column->typeColumn);
-
 			if (column->nextColumn)
 				ft_write_to_file(fd, "\',\'");
 			else

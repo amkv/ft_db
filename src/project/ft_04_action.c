@@ -51,7 +51,7 @@ static bool 	ft_initialize_query(t_query *query, t_query *list, t_db **database)
 	query->action = list->action;
 	query->object = list->object;
 	query->tag = list->tag;
-	if (query->action == NULL || query->object == NULL) // || query->tag == NULL
+	if (query->action == NULL || query->object == NULL) /* || query->tag == NULL */
 		return (False);
 	return (True);
 }
@@ -63,6 +63,8 @@ int	 			ft_db_action(t_query *list, va_list ap)
 
 	if (!list)
 		return (-1);
+	ft_set_false_by_default_for_memory_allocation(&query);
+	ft_db_null_query(&query);
 	database = (t_db**)va_arg(ap, t_db*);
 	while(list)
 	{

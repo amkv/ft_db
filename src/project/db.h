@@ -33,7 +33,7 @@
 # define SEPARATOR ','
 # define ACTION_OBJECT_SEPARATOR ' '
 
-// actions
+/* actions */
 # define CREATE "CREATE"
 # define ADD "ADD"
 # define SET "SET"
@@ -45,15 +45,16 @@
 # define DUMP "DUMP"
 # define FLUSH "FLUSH"
 
-// objects
+/* objects */
 # define DATABASE "DATABASE"
 # define TABLE "TABLE"
 # define COLUMN "COLUMN"
+# define ROW "ROW"
 # define RECORD "RECORD"
 # define TYPE "TYPE"
 # define DEBUG "DEBUG"
 
-// tag
+# define TABLELINE "+------------------------------------------------------+\n"
 
 typedef enum boolean
 {
@@ -77,7 +78,7 @@ typedef struct			s_table
 	char 				*nameTable;			// name of table
 	size_t	 			amountColumns; 		// how many columns
 	size_t	 			amountRecords; 		// how many records
-	size_t	 			amountRows; 		// how many records
+	size_t	 			amountRows; 		// how many records (rows)
 	bool				empty;				// is empty table? True/False
 	struct s_column		*firstColumn;		// first column in Table
 	struct s_column		*lastColumn;		// first column in Table
@@ -129,6 +130,11 @@ typedef struct 			s_query				// wrapper for query
 	char				*nameColumn;
 	char				*typeColumn;
 
+	bool				memNameDB;			// 'mem' - is memory allocated?
+	bool				memNameTable;		//
+	bool				memNameColumn;		//
+	bool				memTypeColumn;		//
+
 	bool				error;				// True if error
 	char				*error_name;
 
@@ -170,5 +176,15 @@ void					ft_print_debug_info(t_db *database, char *info);
 void					ft_db_dump(t_db *database, char *file);
 int 					ft_is_all_print(const char *str);
 void					ft_db_print_all_db(t_db *database);
+void					ft_print_columns(t_table *table, t_record **rows);
+void					ft_print_table_specific(t_table *table);
+void					ft_print_records(t_record *rows);
+void					ft_print_record_specific(t_record *record);
+
+void			ft_set_false_by_default_for_memory_allocation(t_query *query);
+
+//void					ft_free_query_list(t_query *queryLock);
+//t_query					*ft_add_query_to_free(t_query *queryLock, t_query *currentList);
+//t_query					*ft_free_list_and_next(t_query *list);
 
 #endif

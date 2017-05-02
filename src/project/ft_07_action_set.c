@@ -15,6 +15,7 @@
 void			ft_db_action_set_debug(t_query *query, t_query *list)
 {
 	query->typeColumn = ft_strdup(list->tag);
+	query->memTypeColumn = True;
 	query->lock = True;
 	ft_print_debug_info(*query->database, "SET TYPE");
 }
@@ -23,14 +24,15 @@ void			ft_db_action_set_type(t_db *database)
 {
 	if (database)
 	{
+		ft_printf("ft_db [DEBUG: ");
 		if (database->debug)
 		{
-			ft_printf("[UNSET DEBUG]\n");
+			ft_printf("OFF]\n");
 			database->debug = False;
 		}
 		else
 		{
-			ft_printf("[SET DEBUG]\n");
+			ft_printf("ON]\n");
 			database->debug = True;
 		}
 	}

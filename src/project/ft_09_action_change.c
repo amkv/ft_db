@@ -12,12 +12,18 @@
 
 #include "db.h"
 
+void			ft_db_action_change_record(t_query *query, t_query *list)
+{
+
+
+//	query->lock = False;
+	ft_print_debug_info(*query->database, "CHANGE RECORD");
+}
+
 void			ft_db_action_change(t_query *query, t_query *list)
 {
 	if (ft_strcmp(query->object, RECORD) == 0)
-	{
-		ft_print_debug_info(*query->database, "CHANGE RECORD");
-	}
+		ft_db_action_change_record(query, list);
 	else
 		ft_print_debug_info(*query->database, RED"BAD OBJECT (CHANGE)"CLN);
 }

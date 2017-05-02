@@ -39,7 +39,6 @@ void			ft_new_record(t_db *database, char *nameTable, char *nameColumn, char *ty
 		return (ft_set_error(database, "Column name does not exist"));
 	ft_create_row(database, table, column);
 	ft_create_record(database, table, column, record);
-//	ft_printf("row created\n");
 }
 
 /*

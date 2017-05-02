@@ -19,9 +19,6 @@ void			ft_db_action_add(t_query *query, t_query *list)
 		query->record = (void*)list->tag;
 		ft_new_record(*query->database, query->nameTable, query->nameColumn, query->typeColumn, query->record);
 		query->lock = False;
-		free(query->nameTable);
-		free(query->nameColumn);
-		free(query->typeColumn);
 		ft_print_debug_info(*query->database, "ADD RECORD");
 	}
 	else

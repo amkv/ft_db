@@ -83,8 +83,16 @@ void			ft_db_action_flush_database_all(t_db *database)
 
 static void 	ft_db_action_flush_database(t_query *query, t_query *list)
 {
-	ft_db_action_flush_database_all(*query->database);
-	ft_print_debug_info(*query->database, "FLUSH DATABASE");
+	if (!*query->database)
+		return ;
+	if (ft_strcmp((*query->database)->name, query->tag) == 0)
+	{
+		ft_db_action_flush_database_all(*query->database);
+		/* ft_print_debug_info(*query->database, "FLUSH DATABASE"); */
+	}
+	else
+		ft_print_debug_info(*query->database, RED"BAD DATABASE"CLN);
+
 }
 
 void			ft_db_action_flush(t_query *query, t_query *list)

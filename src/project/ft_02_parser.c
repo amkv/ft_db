@@ -63,16 +63,23 @@ static void 	ft_db_set_action_target_tag(char *pair, char **action, char **objec
 	while(*pointer && *pointer != PAIRSEPARATOR)
 		pointer++;
 	null_termination_pointer = pointer;
-	*pointer = '\0';
-	command = ft_strdup(start);
-	++pointer;
-	while(*pointer == ' ')
-		pointer++;
-	*tag = ft_strdup(pointer);
-	*null_termination_pointer = PAIRSEPARATOR;
+	if (*pointer == '\0')
+	{
+		*tag = NULL;
+		command = ft_strdup(start);
+	}
+	else
+	{
+		*pointer = '\0';
+		command = ft_strdup(start);
+		++pointer;
+		while(*pointer == ' ')
+			pointer++;
+		*tag = ft_strdup(pointer);
+		*null_termination_pointer = PAIRSEPARATOR;
+	}
 	ft_set_action_and_object(command, action, object);
 	free(command);
-	command = NULL;
 }
 
 void 			ft_db_parser(t_query **query, const char *format)

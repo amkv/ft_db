@@ -95,6 +95,8 @@ void			ft_create_row(t_db *database, t_table *table, t_column *column)
 		}
 		ft_set_new(new, column_, firstID, lastRow);
 		ft_set_new2(new, &left, &column_, &lastRow);
+		if (!column_->firstRow)
+			column_->firstRow = new;
 		column_ = column_->nextColumn;
 	}
 	table->amountRows += 1;

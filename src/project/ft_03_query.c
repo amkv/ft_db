@@ -12,6 +12,14 @@
 
 #include "db.h"
 
+void			ft_set_false_by_default_for_memory_allocation(t_query *query)
+{
+	query->memNameDB = False;
+	query->memNameTable = False;
+	query->memNameColumn = False;
+	query->memTypeColumn = False;
+}
+
 void			ft_db_null_query(t_query *query)
 {
 	if (!query)
@@ -27,10 +35,26 @@ void			ft_db_null_query(t_query *query)
 	query->row = NULL;
 	query->record = NULL;
 
+	if (query->memNameDB)
+		free(query->nameDB);
 	query->nameDB = NULL;
+
+	if (query->memNameTable)
+		free(query->nameTable);
 	query->nameTable = NULL;
+
+	if (query->memNameColumn)
+		free(query->nameColumn);
 	query->nameColumn = NULL;
+
+	if (query->memTypeColumn)
+		free(query->typeColumn);
 	query->typeColumn = NULL;
+
+	query->memNameDB = False;
+	query->memNameTable = False;
+	query->memNameColumn = False;
+	query->memTypeColumn = False;
 
 	query->error = False;
 	query->error_name = NULL;
@@ -46,6 +70,7 @@ static t_query 	*new_query(void)
 	query = (t_query*)malloc(sizeof(t_query) * 1);
 	if (!query)
 		return (NULL);
+	ft_set_false_by_default_for_memory_allocation(query);
 	ft_db_null_query(query);
 	return (query);
 }

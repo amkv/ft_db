@@ -14,29 +14,27 @@
 
 static void		ft_db_action_create_database(t_query *query, t_query *list)
 {
-//	if (list->tag)
-//	{
-		query->nameDB = list->tag;
-		*query->database = ft_init_db(query->nameDB);
-//	}
+	query->nameDB = list->tag;
+//	query->memNameDB = True;
+	*query->database = ft_init_db(query->nameDB);
 	ft_print_debug_info(*query->database, "CREATE DATABASE");
 }
 
 static void		ft_db_action_create_table(t_query *query)
 {
 	query->nameTable = query->tag;
-	ft_new_table(*query->database, query->tag);
+//	query->memNameTable = True;
+	ft_new_table(*query->database, query->nameTable);
 	ft_print_debug_info(*query->database, "CREATE TABLE");
 }
 
 static void		ft_db_action_create_column(t_query *query, t_query *list)
 {
 
-	query->nameColumn = list->tag;
+	query->nameColumn = ft_strdup(list->tag);
+	query->memNameColumn = True;
 	ft_new_column(*query->database, query->nameTable, query->nameColumn, query->typeColumn);
 	query->lock = False;
-	free(query->nameTable);
-	free(query->typeColumn);
 	ft_print_debug_info(*query->database, "CREATE COLUMN");
 }
 

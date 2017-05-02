@@ -12,7 +12,7 @@
 
 #include "db.h"
 
-static void		ft_print_columns(t_table *table, t_record **rows)
+void			ft_print_columns(t_table *table, t_record **rows)
 {
 	t_column	*column;
 
@@ -23,14 +23,30 @@ static void		ft_print_columns(t_table *table, t_record **rows)
 		*rows = NULL;
 	while(column)
 	{
-		ft_printf("<%s> (%s) | ", column->nameColumn, column->typeColumn);
+		ft_printf("[%s] "GRY"<%s>"CLN, column->nameColumn, column->typeColumn);
+		ft_printf(GRY" | "CLN);
 		column = column->nextColumn;
 		if (!column)
 			ft_printf("\n");
 	}
 }
 
-static void		ft_print_records(t_record *rows)
+void			ft_print_record_specific(t_record *record)
+{
+	if (record->isID)
+		ft_printf(GRY"[%d]"CLN, record->id);
+	else if (record->empty)
+		ft_printf(GRY"NONE"CLN, record->typeRecord);
+	else
+	{
+		if (ft_strcmp(record->typeRecord, "string") == 0)
+			ft_printf(GRN"%s"CLN, (char*)record->value);
+		else if (ft_strcmp(record->typeRecord, "int") == 0)
+			ft_printf(GRN"%d"CLN, ft_atoi(record->value));
+	}
+}
+
+void			ft_print_records(t_record *rows)
 {
 	t_record	*record;
 
@@ -39,22 +55,22 @@ static void		ft_print_records(t_record *rows)
 		record = rows->firstID;
 		while(record)
 		{
-			if (record->isID)
-				ft_printf(GRY"[%d] | "CLN, record->id);
-			else if (record->empty)
-				ft_printf(GRY"NONE"CLN" | ", record->typeRecord);
-			else
-			{
-				if (ft_strcmp(record->typeRecord, "string") == 0)
-					ft_printf(GRN"%s"CLN" | ", (char*)record->value);
-				else if (ft_strcmp(record->typeRecord, "int") == 0)
-					ft_printf(GRN"%d"CLN" | ", (int)record->value);
-			}
+			ft_print_record_specific(record);
+			ft_printf(GRY" | "CLN);
 			record = record->right;
 		}
 		rows = rows->firstID->down;
 		ft_printf("\n");
 	}
+}
+
+void			ft_print_table_specific(t_table *table)
+{
+	ft_printf(TABLELINE);
+	ft_printf("TABLE: [%s], ", table->nameTable);
+	ft_printf(GRY"COLUMNS: %d, ", table->amountColumns);
+	ft_printf("ROWS: %d, ", table->amountRows);
+	ft_printf("RECORDS: %d\n"CLN, table->amountRecords);
 }
 
 void			ft_db_print_all_db(t_db *database)
@@ -65,17 +81,15 @@ void			ft_db_print_all_db(t_db *database)
 	if (!database)
 		return ;
 	table = database->firstTable;
-	ft_printf("\nDATABASE: %s\n\n", database->name);
+	ft_printf(TABLELINE);
+	ft_printf("DATABASE: %s\n", database->name);
 	while (table)
 	{
-		ft_printf("TABLE: [%s], ", table->nameTable);
-		ft_printf("COLUMNS: %d, ", table->amountColumns);
-		ft_printf("ROWS: %d, ", table->amountRows);
-		ft_printf("RECORDS: %d\n", table->amountRecords);
-		ft_printf("+------------------------------------------------------+\n");
+		ft_print_table_specific(table);
 		ft_print_columns(table, &rows);
+		ft_printf(TABLELINE);
 		ft_print_records(rows);
+		ft_printf(TABLELINE);
 		table = table->nextTable;
-		ft_printf("\n\n");
 	}
 }
