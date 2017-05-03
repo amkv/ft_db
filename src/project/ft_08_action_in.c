@@ -28,6 +28,13 @@ void			ft_db_action_in(t_query *query, t_query *list)
 		query->lock = True;
 		ft_print_debug_info(*query->database, "IN COLUMN");
 	}
+	else if (ft_strcmp(query->object, RECORD) == 0)
+	{
+		query->nameRecordTo = ft_strdup(list->tag);
+		query->memNameRecordTo = True;
+		query->lock = True;
+		ft_print_debug_info(*query->database, "IN RECORD");
+	}
 	else
 		ft_print_debug_info(*query->database, RED"BAD OBJECT (IN)"CLN);
 }

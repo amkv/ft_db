@@ -14,6 +14,7 @@
 
 static void		ft_db_action_print_database(t_query *query, t_query *list)
 {
+	list->unused = False;
 	ft_db_print_all_db(*query->database);
 	ft_print_debug_info(*query->database, "PRINT DATABASE");
 }
@@ -105,6 +106,7 @@ static void		ft_db_action_print_row(t_query *query, t_query *list)
 
 static void		ft_db_action_print_record(t_query *query, t_query *list)
 {
+	list->unused = False;
 	ft_print_debug_info(*query->database, "PRINT RECORD");
 }
 

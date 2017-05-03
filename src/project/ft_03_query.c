@@ -18,6 +18,34 @@ void			ft_set_false_by_default_for_memory_allocation(t_query *query)
 	query->memNameTable = False;
 	query->memNameColumn = False;
 	query->memTypeColumn = False;
+	query->memNameDBTo = False;
+	query->memNameTableTo = False;
+	query->memNameColumnTo = False;
+	query->memTypeColumnTo = False;
+	query->memNameRecordTo = False;
+}
+
+void			ft_free_query_memory_allocation(t_query *query)
+{
+	(query->memNameDB) ? free(query->nameDB) : query->nameDB;
+	query->nameDB = NULL;
+	(query->memNameTable) ? free(query->nameTable) : query->nameTable;
+	query->nameTable = NULL;
+	(query->memNameColumn) ? free(query->nameColumn) : query->nameColumn;
+	query->nameColumn = NULL;
+	(query->memTypeColumn) ? free(query->typeColumn) : query->typeColumn;
+	query->typeColumn = NULL;
+	(query->memNameDBTo) ? free(query->nameDBTo) : query->nameDBTo;
+	query->nameDBTo = NULL;
+	(query->memNameTableTo) ? free(query->nameTableTo) : query->nameTableTo;
+	query->nameTableTo = NULL;
+	(query->memNameColumnTo) ? free(query->nameColumnTo) : query->nameColumnTo;
+	query->nameColumnTo = NULL;
+	(query->memTypeColumnTo) ? free(query->typeColumnTo) : query->typeColumnTo;
+	query->typeColumnTo = NULL;
+	(query->memNameRecordTo) ? free(query->nameRecordTo) : query->nameRecordTo;
+	query->nameRecordTo = NULL;
+	ft_set_false_by_default_for_memory_allocation(query);
 }
 
 void			ft_db_null_query(t_query *query)
@@ -28,37 +56,14 @@ void			ft_db_null_query(t_query *query)
 	query->object = NULL;
 	query->tag = NULL;
 	query->lock = False;
-
 	query->database = NULL;
 	query->table = NULL;
 	query->column = NULL;
 	query->row = NULL;
 	query->record = NULL;
-
-	if (query->memNameDB)
-		free(query->nameDB);
-	query->nameDB = NULL;
-
-	if (query->memNameTable)
-		free(query->nameTable);
-	query->nameTable = NULL;
-
-	if (query->memNameColumn)
-		free(query->nameColumn);
-	query->nameColumn = NULL;
-
-	if (query->memTypeColumn)
-		free(query->typeColumn);
-	query->typeColumn = NULL;
-
-	query->memNameDB = False;
-	query->memNameTable = False;
-	query->memNameColumn = False;
-	query->memTypeColumn = False;
-
+	ft_free_query_memory_allocation(query);
 	query->error = False;
 	query->error_name = NULL;
-
 	query->firstQuery = NULL;
 	query->next = NULL;
 }

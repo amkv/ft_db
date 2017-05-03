@@ -100,4 +100,6 @@ void			ft_create_row(t_db *database, t_table *table, t_column *column)
 		column_ = column_->nextColumn;
 	}
 	table->amountRows += 1;
+	database->unused = True;
+	column->unused = True;
 }

@@ -15,34 +15,50 @@
 void			ft_print_columns(t_table *table, t_record **rows)
 {
 	t_column	*column;
+	t_column	*column2;
 
 	column = table->firstColumn;
 	if (column)
 		*rows = column->firstRow;
 	else
 		*rows = NULL;
+	column2 = column;
 	while(column)
 	{
-		ft_printf("[%s] "GRY"<%s>"CLN, column->nameColumn, column->typeColumn);
+		ft_printf("[%s]", column->nameColumn);
 		ft_printf(GRY" | "CLN);
 		column = column->nextColumn;
 		if (!column)
+			ft_printf("\n");
+	}
+	while(column2)
+	{
+		if (ft_strcmp(column2->typeColumn, "string") == 0)
+			ft_printf(""GRY"<%s>"CLN, "str");
+		else
+			ft_printf(""GRY"<%s>"CLN, column2->typeColumn);
+		ft_printf(GRY" | "CLN);
+		column2 = column2->nextColumn;
+		if (!column2)
 			ft_printf("\n");
 	}
 }
 
 void			ft_print_record_specific(t_record *record)
 {
+	int 		space;
+
+	space = 10;
 	if (record->isID)
 		ft_printf(GRY"[%d]"CLN, record->id);
 	else if (record->empty)
-		ft_printf(GRY"NONE"CLN, record->typeRecord);
+		ft_printf(GRY"%-*s"CLN, space, "NONE");
 	else
 	{
 		if (ft_strcmp(record->typeRecord, "string") == 0)
-			ft_printf(GRN"%s"CLN, (char*)record->value);
+			ft_printf(GRN"%-*s"CLN, space, (char*)record->value);
 		else if (ft_strcmp(record->typeRecord, "int") == 0)
-			ft_printf(GRN"%d"CLN, ft_atoi(record->value));
+			ft_printf(GRN"%-*d"CLN, space, ft_atoi(record->value));
 	}
 }
 

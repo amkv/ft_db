@@ -38,6 +38,14 @@ static void		ft_db_action_create_column(t_query *query, t_query *list)
 	ft_print_debug_info(*query->database, "CREATE COLUMN");
 }
 
+static void		ft_db_action_create_record(t_query *query, t_query *list)
+{
+	query->record = (void*)list->tag;
+	ft_new_record(*query->database, query->nameTable, query->nameColumn, query->typeColumn, query->record);
+	query->lock = False;
+	ft_print_debug_info(*query->database, "CREATE RECORD");
+}
+
 void			ft_db_action_create(t_query *query, t_query *list)
 {
 	if (ft_strcmp(query->object, DATABASE) == 0)
@@ -46,6 +54,8 @@ void			ft_db_action_create(t_query *query, t_query *list)
 		ft_db_action_create_table(query);
 	else if (ft_strcmp(query->object, COLUMN) == 0)
 		ft_db_action_create_column(query, list);
+	else if (ft_strcmp(query->object, RECORD) == 0)
+		ft_db_action_create_record(query, list);
 	else
 		ft_print_debug_info(*query->database, RED"BAD OBJECT (CREATE)"CLN);
 }

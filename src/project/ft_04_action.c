@@ -27,11 +27,12 @@ void			ft_print_debug_info(t_db *database, char *info)
 	}
 }
 
-static t_query	*ft_free_list_and_next(t_query *list)
+static t_query	*ft_free_list_and_next(t_query *list, t_query *query)
 {
 	t_query		*next;
 
-	if (ft_strcmp(list->object, RECORD) != 0)
+	if (ft_strcmp(list->object, RECORD) != 0 || query->memNameRecordTo
+		|| ft_strcmp(list->action, "DELETE") == 0)
 	{
 		free(list->tag);
 		list->tag = NULL;
@@ -90,11 +91,13 @@ int	 			ft_db_action(t_query *list, va_list ap)
 			ft_db_action_dump(&query, list);
 		else if (ft_strcmp(query.action, FLUSH) == 0)
 			ft_db_action_flush(&query, list);
+		else if (ft_strcmp(query.action, TO) == 0)
+			ft_db_action_to(&query, list);
 		else
 			ft_print_debug_info(*query.database, RED"BAD ACTION"CLN);
 		if (!query.lock)
 			ft_db_null_query(&query);
-		list = ft_free_list_and_next(list);
+		list = ft_free_list_and_next(list, &query);
 	}
 	return (0);
 }

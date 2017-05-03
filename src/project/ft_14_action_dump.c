@@ -21,16 +21,19 @@ static void		ft_db_action_dump_database(t_query *query, t_query *list)
 
 static void		ft_db_action_dump_table(t_query *query, t_query *list)
 {
+	list->unused = False;
 	ft_print_debug_info(*query->database, "DUMP TABLE");
 }
 
 static void		ft_db_action_dump_column(t_query *query, t_query *list)
 {
+	list->unused = False;
 	ft_print_debug_info(*query->database, "DUMP COLUMN");
 }
 
 static void		ft_db_action_dump_record(t_query *query, t_query *list)
 {
+	list->unused = False;
 	ft_print_debug_info(*query->database, "DUMP RECORD");
 }
 

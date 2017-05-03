@@ -88,6 +88,7 @@ static void 	ft_db_action_flush_database(t_query *query, t_query *list)
 	if (ft_strcmp((*query->database)->name, query->tag) == 0)
 	{
 		ft_db_action_flush_database_all(*query->database);
+		list->unused = False;
 		/* ft_print_debug_info(*query->database, "FLUSH DATABASE"); */
 	}
 	else

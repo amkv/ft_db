@@ -9,6 +9,7 @@
 /*   Updated: 2017/03/17 18:02:48 by akalmyko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/* ft_db alpha version 0.0.1 */
 
 #ifndef DB_H
 # define DB_H
@@ -19,9 +20,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-# pragma GCC diagnostic ignored "-Wunused-parameter"
-# pragma GCC diagnostic ignored "-Wunused-variable"
-# pragma GCC diagnostic ignored "-Wunused-function"
+//# pragma GCC diagnostic ignored "-Wunused-parameter"
+//# pragma GCC diagnostic ignored "-Wunused-variable"
+//# pragma GCC diagnostic ignored "-Wunused-function"
 
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
@@ -44,6 +45,7 @@
 # define PRINT "PRINT"
 # define DUMP "DUMP"
 # define FLUSH "FLUSH"
+# define TO "TO"
 
 /* objects */
 # define DATABASE "DATABASE"
@@ -71,6 +73,7 @@ typedef struct			s_db
 	bool				error;				// any errors?
 	char 				*nameError;			// name of error
 	bool				debug;				// debug mode, print errors and log
+	bool				unused;				// flag for colmpiler (not actualy using in program)
 }						t_db;
 
 typedef struct			s_table
@@ -83,6 +86,7 @@ typedef struct			s_table
 	struct s_column		*firstColumn;		// first column in Table
 	struct s_column		*lastColumn;		// first column in Table
 	struct s_table		*nextTable;			// next table in DB
+	bool				unused;				// flag for colmpiler (not actualy using in program)
 }						t_table;
 
 typedef struct			s_column
@@ -90,9 +94,11 @@ typedef struct			s_column
 	char 				*nameColumn;		// name of column
 	char 				*typeColumn;		// type of column
 	size_t	 			amountRecords; 		// how many records
+	bool				unused;				// flag for colmpiler (not actualy using in program)
 	struct s_record		*firstRow;			// first Record (in column)
 	struct s_record		*lastRow;			// last Record (in column)
 	struct s_column		*nextColumn;		// next Column (right)
+
 }						t_column;
 
 typedef struct			s_record
@@ -101,6 +107,7 @@ typedef struct			s_record
 	bool				empty;				// is empty record? True/False
 	size_t				id;					// id record record (row uniq id)
 	void 				*value;				// value of record (union?)
+	bool				unused;				// flag for colmpiler (not actualy using in program)
 
 	char 				*typeRecord;		// type of record
 	struct s_record		*right;				// pointer in table
@@ -130,13 +137,26 @@ typedef struct 			s_query				// wrapper for query
 	char				*nameColumn;
 	char				*typeColumn;
 
+	char				*nameDBTo;
+	char				*nameTableTo;
+	char				*nameColumnTo;
+	char 				*nameRecordTo;
+	size_t				numRowTo;
+	char				*typeColumnTo;
+
 	bool				memNameDB;			// 'mem' - is memory allocated?
 	bool				memNameTable;		//
 	bool				memNameColumn;		//
 	bool				memTypeColumn;		//
+	bool				memNameDBTo;		//
+	bool				memNameTableTo;		//
+	bool				memNameColumnTo;	//
+	bool				memNameRecordTo;	//
+	bool				memTypeColumnTo;	//
 
 	bool				error;				// True if error
 	char				*error_name;
+	bool				unused;				// flag for colmpiler (not actualy using in program)
 
 	struct s_query		*firstQuery;
 	struct s_query		*next;
@@ -157,6 +177,7 @@ void					ft_db_action_delete(t_query *query, t_query *list);
 void					ft_db_action_print(t_query *query, t_query *list);
 void					ft_db_action_dump(t_query *query, t_query *list);
 void					ft_db_action_flush(t_query *query, t_query *list);
+void					ft_db_action_to(t_query *query, t_query *list);
 
 t_db					*ft_init_db(char *nameDB);
 void					ft_set_error(t_db *database, char *nameError);
@@ -169,6 +190,7 @@ void 					ft_new_column(t_db *database, char *nameTable, char *nameColumn, char 
 t_column				*ft_return_column(t_table *table, char *nameColumn);
 int						ft_check_type_of_column(char *typeColumn);
 void 					ft_new_record(t_db *database, char *tableName, char *nameColumn, char *type, void *record);
+t_record				*ft_return_record(t_column *column, char *typeRecord, void *value);
 void					ft_create_row(t_db *database, t_table *table, t_column *column);
 int 					ft_db(const char *restrict format, ...);
 
@@ -181,10 +203,6 @@ void					ft_print_table_specific(t_table *table);
 void					ft_print_records(t_record *rows);
 void					ft_print_record_specific(t_record *record);
 
-void			ft_set_false_by_default_for_memory_allocation(t_query *query);
-
-//void					ft_free_query_list(t_query *queryLock);
-//t_query					*ft_add_query_to_free(t_query *queryLock, t_query *currentList);
-//t_query					*ft_free_list_and_next(t_query *list);
+void					ft_set_false_by_default_for_memory_allocation(t_query *query);
 
 #endif

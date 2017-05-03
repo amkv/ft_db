@@ -12,12 +12,41 @@
 
 #include "db.h"
 
+t_record		*ft_return_record(t_column *column, char *typeRecord, void *value)
+{
+	t_record	*record;
+
+	if (!column)
+		return (NULL);
+	if (!typeRecord)
+		return (NULL);
+	record = column->firstRow;
+	if (!record)
+		return (NULL);
+	while(record)
+	{
+		if (!record->empty && ft_strcmp(typeRecord, "int") == 0)
+		{
+			if (ft_atoi(record->value) == ft_atoi((char*)value))
+				return (record);
+		}
+		else if (!record->empty && ft_strcmp(typeRecord, "string") == 0)
+		{
+			if (ft_strcmp((char*)record->value, (char*)value) == 0)
+				return (record);
+		}
+		record = record->down;
+	}
+	return (NULL);
+}
+
 static void		ft_create_record(t_db *database, t_table *table, t_column *column, void *record)
 {
 	column->lastRow->value = record;
 	column->lastRow->empty = False;
 	table->amountRecords += 1;
 	column->amountRecords += 1;
+	database->unused = True;
 }
 
 void			ft_new_record(t_db *database, char *nameTable, char *nameColumn, char *typeColumn, void *record)
@@ -40,11 +69,3 @@ void			ft_new_record(t_db *database, char *nameTable, char *nameColumn, char *ty
 	ft_create_row(database, table, column);
 	ft_create_record(database, table, column, record);
 }
-
-/*
- * "types"
- * s string
- * c char
- * d/i int
- * ...
- */

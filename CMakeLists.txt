@@ -23,6 +23,7 @@ set(SOURCE_FILES
 		src/project/ft_14_action_dump.c
 		src/project/ft_15_action_dump_db.c
 		src/project/ft_16_action_flush.c
+		src/project/ft_17_action_to.c
 		src/project/ft_21_init_db.c
 		src/project/ft_22_table.c
 		src/project/ft_23_column.c
