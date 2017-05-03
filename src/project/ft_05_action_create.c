@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   *.c                                                :+:      :+:    :+:   */
+/*   ft_05_action_create.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Artem Kalmykov <kalmykov.artem@gmail.com>  +#+  +:+       +#+        */
+/*   By: Artem Kalmykov <akalmyko@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/00/00 00:00:00 by akalmyko          #+#    #+#             */
-/*   Updated: 2017/00/00 00:00:00 by akalmyko         ###   ########.fr       */
+/*   Created: 2017/05/02 11:21:11 by akalmyko          #+#    #+#             */
+/*   Updated: 2017/05/03 15:56:32 by akalmyko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void		ft_db_action_create_database(t_query *query, t_query *list)
 {
 	query->nameDB = list->tag;
-//	query->memNameDB = True;
 	*query->database = ft_init_db(query->nameDB);
 	ft_print_debug_info(*query->database, "CREATE DATABASE");
 }
@@ -23,7 +22,6 @@ static void		ft_db_action_create_database(t_query *query, t_query *list)
 static void		ft_db_action_create_table(t_query *query)
 {
 	query->nameTable = query->tag;
-//	query->memNameTable = True;
 	ft_new_table(*query->database, query->nameTable);
 	ft_print_debug_info(*query->database, "CREATE TABLE");
 }

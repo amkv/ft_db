@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   *.c                                                :+:      :+:    :+:   */
+/*   ft_04_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Artem Kalmykov <kalmykov.artem@gmail.com>  +#+  +:+       +#+        */
+/*   By: Artem Kalmykov <akalmyko@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/00/00 00:00:00 by akalmyko          #+#    #+#             */
-/*   Updated: 2017/00/00 00:00:00 by akalmyko         ###   ########.fr       */
+/*   Created: 2017/05/03 10:03:34 by akalmyko          #+#    #+#             */
+/*   Updated: 2017/05/03 15:56:23 by akalmyko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool 	ft_initialize_query(t_query *query, t_query *list, t_db **database)
 	query->action = list->action;
 	query->object = list->object;
 	query->tag = list->tag;
-	if (query->action == NULL || query->object == NULL) /* || query->tag == NULL */
+	if (query->action == NULL || query->object == NULL)
 		return (False);
 	return (True);
 }

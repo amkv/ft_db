@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   *.c                                                :+:      :+:    :+:   */
+/*   ft_16_action_flush.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Artem Kalmykov <kalmykov.artem@gmail.com>  +#+  +:+       +#+        */
+/*   By: Artem Kalmykov <akalmyko@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/00/00 00:00:00 by akalmyko          #+#    #+#             */
-/*   Updated: 2017/00/00 00:00:00 by akalmyko         ###   ########.fr       */
+/*   Created: 2017/05/02 16:08:39 by akalmyko          #+#    #+#             */
+/*   Updated: 2017/05/03 15:57:32 by akalmyko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ static void 	ft_db_action_flush_database(t_query *query, t_query *list)
 	{
 		ft_db_action_flush_database_all(*query->database);
 		list->unused = False;
-		/* ft_print_debug_info(*query->database, "FLUSH DATABASE"); */
 	}
 	else
 		ft_print_debug_info(*query->database, RED"BAD DATABASE"CLN);
